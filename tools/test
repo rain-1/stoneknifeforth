@@ -1,0 +1,130 @@
+#!/bin/bash
+set -e
+
+protoexec() {
+    # Use the python prototype to execute a .tbf1 script
+    
+    SCRIPT="$1"
+    
+    ./prototype/tinyboot.py "$SCRIPT"
+}
+
+protocompile() {
+    # use the python prototype to
+    #  run tinyboot1.tbf1
+    #  to compile SCRIPT creating OUTPUT
+
+    # then execute OUTPUT
+
+    SCRIPT="$1"
+    OUTPUT=`basename "$SCRIPT"`
+    OUTPUT="./build/${OUTPUT%.tbf1}"
+
+    rm -f "$OUTPUT"
+
+    echo '#' ./prototype/tinyboot.py tinyboot/tinyboot1.tbf1 '<' "$SCRIPT" '>' "$OUTPUT"
+    if ! ./prototype/tinyboot.py tinyboot/tinyboot1.tbf1 < "$SCRIPT" > "$OUTPUT" ; then
+	cat "$OUTPUT"
+	exit 1
+    fi
+    chmod 755 "$OUTPUT"
+}
+
+buildtinyboot1() {
+    echo "# building tinyboot1"
+    rm -f ./build/tinyboot1
+    protocompile "tinyboot/tinyboot1.tbf1"
+}
+
+tinybootcompile() {
+    # use tinyboot1 to compile SCRIPT creating OUTPUT
+    
+    SCRIPT="$1"
+    OUTPUT=`basename "$SCRIPT"`
+    OUTPUT="./build/${OUTPUT%.tbf1}"
+
+    rm -f "$OUTPUT"
+
+    echo '#' ./build/tinyboot1 '<' "$SCRIPT" '>' "$OUTPUT"
+    ./build/tinyboot1 < "$SCRIPT" > "$OUTPUT"
+    chmod 755 "$OUTPUT"
+}
+
+function t1() {
+    # Test all the basic scripts running on the python prototype
+    echo '# t1'
+    echo
+    
+    protoexec "tests/hello42.tbf1" > "./build/hello42"
+    chmod 755 "./build/hello42"
+    sh -c './build/hello42 ; echo $?'
+    echo
+    
+    protoexec "tests/Q.tbf1"
+    echo
+    
+    protoexec "tests/hi.tbf1"
+    echo
+    
+    echo "!?@*" | protoexec "tests/cat1.tbf1"
+    echo
+    
+    echo "ABCDXYZW..." | protoexec "tests/star.tbf1"
+    echo
+    
+    echo "Hello world!" | protoexec "tests/cat.tbf1"
+    echo
+}
+
+function t2() {
+    # Test all the basic scripts running on the python prototype
+    echo '# t2'
+    echo
+    
+    protocompile "tests/Q.tbf1"
+    sh -c './build/Q ; echo $?'
+    echo
+    
+    protocompile "tests/hi.tbf1"
+    ./build/hi
+    echo
+    
+    protocompile "tests/cat1.tbf1"
+    echo "!?@*" | ./build/cat1
+    echo
+    
+    protocompile "tests/star.tbf1"
+    echo "ABCDXYZW..." | ./build/star
+    echo
+    
+    protocompile "tests/cat.tbf1"
+    echo "Hello world!" | ./build/cat
+    echo
+}
+
+function t3() {
+    # Test all the basic scripts running on the compiled tinyboot
+    echo '# t3'
+    echo
+    
+    buildtinyboot1
+    
+    tinybootcompile "tests/Q.tbf1"
+    ./build/Q
+
+    tinybootcompile "tests/hi.tbf1"
+    ./build/hi
+
+    tinybootcompile "tests/cat1.tbf1"
+    echo "!?@*" | ./build/cat1
+
+    tinybootcompile "tests/star.tbf1"
+    echo "ABCDXYZW..." | ./build/star
+
+    tinybootcompile "tests/cat.tbf1"
+    echo "Hello world!" | ./build/cat
+}
+
+t1
+t2
+t3

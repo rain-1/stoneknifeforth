@@ -1,5 +1,8 @@
 all:
-	./build
+	echo
+
+test:
+	./tools/test
 
 clean:
 	rm -f build/*
