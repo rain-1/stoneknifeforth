@@ -1,0 +1,17 @@
+v h
+b 42 b 10
+v i
+b 42 b 42 b 10
+v j
+b 42 b 42 b 42 b 10
+v k
+b 42 b 42 b 42 b 42 b 10
+v l
+b 42 b 42 b 42 b 42 b 42 b 10
+^
+h 2 W
+i 3 W
+j 4 W
+k 5 W
+l 6 W
+Q
