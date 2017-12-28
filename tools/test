@@ -72,6 +72,9 @@ function t1() {
     protoexec "tests/starpyramid2.tbf1"
     echo
     
+    protoexec "tests/starpy3.tbf1"
+    echo
+    
     echo "!?@*" | protoexec "tests/cat1.tbf1"
     echo
     
@@ -101,6 +104,10 @@ function t2() {
     
     protocompile "tests/starpyramid2.tbf1"
     ./build/starpyramid2
+    echo
+    
+    protocompile "tests/starpy3.tbf1"
+    ./build/starpy3
     echo
     
     protocompile "tests/cat1.tbf1"
@@ -136,6 +143,10 @@ function t3() {
     
     tinybootcompile "tests/starpyramid2.tbf1"
     ./build/starpyramid2
+    echo
+    
+    tinybootcompile "tests/starpy3.tbf1"
+    ./build/starpy3
     echo
     
     tinybootcompile "tests/cat1.tbf1"

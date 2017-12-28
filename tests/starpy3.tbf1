@@ -1,0 +1,12 @@
+v h
+b 42 b 42 b 42 b 42 b 42
+b 42 b 42 b 42 b 42 b 42
+b 42 b 42 b 42 b 42 b 42
+b 10
+v X b 0
+^
+16 X !
+{ h 0 X @ - - 16 X @ - W    ( print some stars )
+X @ 1 - X !                 ( decrement X )
+X @ }
+Q
