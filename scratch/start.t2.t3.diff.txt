@@ -1,0 +1,24 @@
+$ diff build/star.t2 build/star.t3
+34,38c34,36
+<    20044:     9f                      lahf
+<    20045:     01 00                   add    %eax,(%eax)
+<    20047:     00 00                   add    %al,(%eax)
+<    20049:     00 0a                   add    %cl,(%edx)
+<    2004b:     00 07                   add    %al,(%edi)
+---
+>    20044:     81 01 00 00 00 00       addl   $0x0,(%ecx)
+>    2004a:     0a 00                   or     (%eax),%al
+>    2004c:     07                      pop    %es
+152,161c150
+<    20180:     50                      push   %eax
+<    20181:     b8 00 00 00 00          mov    $0x0,%eax
+<    20186:     50                      push   %eax
+<    20187:     b8 00 00 00 00          mov    $0x0,%eax
+<    2018c:     50                      push   %eax
+<    2018d:     b8 00 00 00 00          mov    $0x0,%eax
+<    20192:     50                      push   %eax
+<    20193:     b8 01 00 00 00          mov    $0x1,%eax
+<    20198:     87 ec                   xchg   %ebp,%esp
+<    2019a:     e8 b5 fe ff ff          call   0x20054
+---
+>       ...

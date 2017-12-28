@@ -94,6 +94,7 @@ function t2() {
     echo
     
     protocompile "tests/star.tbf1"
+    # ./tools/disassemble build/star > build/star.t2
     echo "ABCDXYZW..." | ./build/star
     echo
     
@@ -119,6 +120,7 @@ function t3() {
     echo "!?@*" | ./build/cat1
 
     tinybootcompile "tests/star.tbf1"
+    # ./tools/disassemble build/star > build/star.t3
     echo "ABCDXYZW..." | ./build/star
 
     tinybootcompile "tests/cat.tbf1"
