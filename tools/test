@@ -78,6 +78,9 @@ function t1() {
     echo "!?@*" | protoexec "tests/cat1.tbf1"
     echo
     
+    echo "ABCDXYZW..." | protoexec "tests/star-without-star.tbf1"
+    echo
+    
     echo "ABCDXYZW..." | protoexec "tests/star.tbf1"
     echo
     
@@ -112,6 +115,10 @@ function t2() {
     
     protocompile "tests/cat1.tbf1"
     echo "!?@*" | ./build/cat1
+    echo
+    
+    protocompile "tests/star-without-star.tbf1"
+    echo "ABCDXYZW..." | ./build/star-without-star
     echo
     
     protocompile "tests/star.tbf1"
@@ -151,6 +158,9 @@ function t3() {
     
     tinybootcompile "tests/cat1.tbf1"
     echo "!?@*" | ./build/cat1
+
+    tinybootcompile "tests/star-without-star.tbf1"
+    echo "ABCDXYZW..." | ./build/star-without-star
 
     tinybootcompile "tests/star.tbf1"
     # ./tools/disassemble build/star > build/star.t3
