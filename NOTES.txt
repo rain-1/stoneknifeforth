@@ -1,0 +1,3 @@
+To compile a stone knife forth program using the python prototype:
+
+./prototype/tinyboot.py <script.tbf1>
